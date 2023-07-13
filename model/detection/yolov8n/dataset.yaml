@@ -1,0 +1,6 @@
+train: /opt/ml/input/data/det_data/train/images
+val: /opt/ml/input/data/det_data/val/images
+test: /opt/ml/input/data/det_data/val/images
+
+nc: 2
+names: ['left_eye','right_eye']
