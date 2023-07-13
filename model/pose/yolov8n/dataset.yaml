@@ -1,0 +1,8 @@
+train: /opt/ml/input/data/pos_data/train/images
+val: /opt/ml/input/data/pos_data/val/images
+test: /opt/ml/input/data/pos_data/val/images
+
+kpt_shape: [17, 2]
+
+names:
+    0: eye
