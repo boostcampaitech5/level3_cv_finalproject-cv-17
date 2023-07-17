@@ -1,0 +1,10 @@
+classes:
+  0:
+    - Leye_O
+  1:
+    - Leye_C
+  2: 
+    - Reye_O
+  3: 
+    - Reye_C
+model_path: assets/detection/det_yolov5.pt

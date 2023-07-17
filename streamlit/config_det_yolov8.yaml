@@ -1,0 +1,6 @@
+classes:
+  0:
+    - left_eye
+  1:
+    - right_eye
+model_path: assets/detection/det_yolov8.pt

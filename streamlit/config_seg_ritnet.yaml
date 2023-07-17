@@ -1,0 +1,8 @@
+classes:
+  0:
+    - eyelid
+  1:
+    - iris
+  2:
+    - pupil
+model_path: assets/segmentation/ritnet_densenet.pkl
