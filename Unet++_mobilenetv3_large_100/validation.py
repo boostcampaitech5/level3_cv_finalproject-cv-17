@@ -4,7 +4,7 @@ from collections import OrderedDict
 
 from tqdm.auto import tqdm
 
-from metric import dice_coef
+from metric import dice_coef, IoU
 from setseed import set_seed
 
 CLASSES = ['sclera', 'iris', 'pupil']
@@ -15,6 +15,7 @@ def validation(epoch, model, data_loader, criterion, RANDOM_SEED = 21, thr=0.5):
     model.eval()
 
     dices = []
+    ious = []
     with torch.no_grad():
         n_class = 3
         total_loss = 0
@@ -48,9 +49,33 @@ def validation(epoch, model, data_loader, criterion, RANDOM_SEED = 21, thr=0.5):
             outputs = torch.sigmoid(outputs)
             outputs = (outputs > thr).detach().cpu()
             masks = masks.detach().cpu()
-            
+
+            iou = IoU(outputs, masks, RANDOM_SEED)
             dice = dice_coef(outputs, masks, RANDOM_SEED)
+            
+            ious.append(iou)
             dices.append(dice)
+
+    #------------------------------------------
+    
+    ious = torch.cat(ious, 0)
+    ious_per_class = torch.mean(ious, 0)
+
+    iou_dict = dict()
+    for c, d in zip(CLASSES, ious_per_class):
+        iou_dict[c] = d
+    
+    ious_str = [
+        f"{c:<12}: {d.item():.5f}"
+        for c, d in zip(CLASSES, ious_per_class)
+    ]
+    ious_str = "\n".join(ious_str)
+    print("iou per classes")
+    print(ious_str)
+    avg_iou = torch.mean(ious_per_class).item()
+    print(f"mean dice: {avg_iou:.5f}")
+
+    #------------------------------------------
                 
     dices = torch.cat(dices, 0)
     dices_per_class = torch.mean(dices, 0)
@@ -60,12 +85,15 @@ def validation(epoch, model, data_loader, criterion, RANDOM_SEED = 21, thr=0.5):
         dice_dict[c] = d
     
     dice_str = [
-        f"{c:<12}: {d.item():.4f}"
+        f"{c:<12}: {d.item():.5f}"
         for c, d in zip(CLASSES, dices_per_class)
     ]
+    print("\ndice per classes")
     dice_str = "\n".join(dice_str)
     print(dice_str)
     
     avg_dice = torch.mean(dices_per_class).item()
+    print(f"mean dice: {avg_dice:.5f}")
     
-    return avg_dice
+    
+    return iou_dict['pupil'].item(), dice_dict['pupil'].item(), avg_iou, avg_dice

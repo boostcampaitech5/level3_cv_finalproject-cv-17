@@ -1,12 +1,24 @@
 from setseed import set_seed
 
-import torch
+import numpy as np
 
-def dice_coef(y_true, y_pred, RANDOM_SEED = 21):
-    set_seed(RANDOM_SEED)
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+def dice_coef(y_true, y_pred, smooth = 1e-6, RANDOM_SEED = 21):
     y_true_f = y_true.flatten(2)
     y_pred_f = y_pred.flatten(2)
     intersection = torch.sum(y_true_f * y_pred_f, -1)
     
-    eps = 1e-6
-    return (2. * intersection + eps) / (torch.sum(y_true_f, -1) + torch.sum(y_pred_f, -1) + eps)
+    return (2. * intersection + smooth) / (torch.sum(y_true_f, -1) + torch.sum(y_pred_f, -1) + smooth)
+
+def IoU(y_true, y_pred, smooth = 1e-6, RANDOM_SEED = 21):
+    y_true_f = y_true.flatten(2)
+    y_pred_f = y_pred.flatten(2)
+    
+    intersection = torch.sum(y_true_f * y_pred_f, -1)
+    union = torch.sum(y_true_f, -1) + torch.sum(y_pred_f, -1) - intersection
+
+    IoU = (intersection + smooth) / (union + smooth)
+    return IoU
