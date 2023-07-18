@@ -102,7 +102,7 @@ if __name__ == "__main__":
         os.remove(file)
 
     from detect_yolov8 import get_detection, load_det_model
-    det_config = "config_det_yolov8.yaml"
+    det_config = "config_det_yolov8_with_close.yaml"
 
     # from detect_yolov5 import get_detection, load_det_model
     # det_config = "config_det_yolov5.yaml"
@@ -114,11 +114,12 @@ if __name__ == "__main__":
     seg_config = "config_seg_ritnet.yaml"
 
     from pose_est import get_pose_estimation, load_pose_model
-    pose_model_path = "/opt/ml/streamlit__/assets/pose/pose_yolov8.pt"
+    pose_model_path = "./assets/pose/pose_yolov8.pt"
     
-    # config_det_yolov5.yaml / config_det_yolov8.yaml
+    # config_det_yolov5.yaml / config_det_yolov8.yaml / config_det_yolov8_with_close.yaml
+    ## ModuleNotFoundError: No module named 'ultralytics.utils' 뜨면 pip install -U ultralytics ##
     run_detection(det_config)
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
     run_segmentation(seg_config)
-    
+
     # run_pose_estimation(pose_model_path)
