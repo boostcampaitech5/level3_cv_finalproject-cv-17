@@ -4,12 +4,13 @@ import streamlit as st
 import torch
 import yaml
 
-from utils import transform_image
+from util_funcs import transform_image
 
 
-SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
+DET_SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
 
 from ultralytics import YOLO
+from PIL import Image
 import time
 
 # @st.cache
@@ -21,6 +22,8 @@ def load_det_model(config_file):
         config = yaml.load(f, Loader=yaml.FullLoader)
 
     model = YOLO(config["model_path"])
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # model.load_state_dict(torch.load(config["model_path"], map_location=device))
 
@@ -28,15 +31,17 @@ def load_det_model(config_file):
 
 
 ## YOLOv8 ['left_eye', 'right_eye'] / (640, 640)
-def get_detection(model, image, start_time):
+def get_detection(model, image_path, start_time):
 
     # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # tensor = transform_image(image_bytes=image_bytes).to(device)
     # outputs = model.forward(tensor)
-
+    image = Image.open(image_path)
     image = image.resize((640, 640)) # doesn't matter 
 
     outputs = model(image)[0]
+    # print('####')
+    # print(outputs)
     boxes = outputs.boxes
     class_ = boxes.cls
     bounding_boxes = boxes.xyxy
@@ -45,7 +50,7 @@ def get_detection(model, image, start_time):
         box = [int(item.item()) for item in box]
         x1, y1, x2, y2 = box
 
-        save_path = SAVE_PATH +'/'+ str(cls) +'.jpg'
+        save_path = DET_SAVE_PATH +'/'+ str(cls) +'.jpg'
         
         cropped_image = image.crop((x1, y1, x2, y2))
         st.image(cropped_image)

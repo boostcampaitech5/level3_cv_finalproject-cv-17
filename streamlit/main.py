@@ -5,13 +5,11 @@ from confirm_button_hack import cache_on_button_press
 # import torchvision
 import yaml
 
-# from predict import get_prediction, load_model
-from detect import get_detection, load_det_model
-from segment import get_segmentation, load_seg_model
+# from detect import get_detection, load_det_model
+# from segment import get_segmentation, load_seg_model
 
 import os
 import io
-from PIL import Image
 import cv2
 import glob
 import time
@@ -20,11 +18,12 @@ import time
 st.set_page_config(layout="wide")
 
 
-SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
+DET_SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
+SEG_SAVE_PATH = "/opt/ml/eye_phone_streamlit/segmentation_results"
 
 def run_detection(config_file):
 
-    st.header("run eye detection..")
+    st.subheader("run eye detection..")
 
     model = load_det_model(config_file)
     
@@ -35,27 +34,32 @@ def run_detection(config_file):
     
     if uploaded_file:
         start_time = time.time()
-        image = Image.open(uploaded_file)
+        # image = Image.open(uploaded_file)
         with st.spinner("Running Eye detection..."):
-            get_detection(model, image, start_time)
+            # get_detection(model, image, start_time)
+            get_detection(model, uploaded_file, start_time)
             
 
 def run_segmentation(config_file):
 
-    st.header("run eye segmentation..")
+    st.subheader("run eye segmentation..")
 
     model = load_seg_model(config_file)
-    model.cuda()
     model.eval()
 
     # with open(config_file) as f:
     #     config = yaml.load(f, Loader=yaml.FullLoader)
-    image_paths = glob.glob(SAVE_PATH + "/*")
-    for image_path in image_paths:
-        start_time = time.time()
-        image = cv2.imread(image_path)
-        with st.spinner("Running Eye segmentation..."):
-            result = get_segmentation(model, image, start_time)
+    image_paths = glob.glob(DET_SAVE_PATH + "/*")
+    # for image_path in image_paths:
+    #     start_time = time.time()
+    #     # image = cv2.imread(image_path)
+    #     with st.spinner("Running Eye segmentation..."):
+    #         # result = get_segmentation(model, image, start_time)
+    #         result = get_segmentation(model, image_path, start_time)
+    start_time = time.time()
+    with st.spinner("Running Eye segmentation..."):
+        # result = get_segmentation(model, image, start_time)
+        result = get_segmentation(model, image_paths, start_time)
         
 
 # root_password = 'password'
@@ -81,11 +85,27 @@ if __name__ == "__main__":
     # st.sidebar.button("Refresh Program",on_click=clear_cache)
     st.cache_data.clear()
 
-    folder = glob.glob(SAVE_PATH + "/*")
+    folder = glob.glob(DET_SAVE_PATH + "/*")
+    for file in folder:
+        os.remove(file)
+    folder = glob.glob(SEG_SAVE_PATH + "/*")
     for file in folder:
         os.remove(file)
 
+    from detect_yolov8 import get_detection, load_det_model
+    det_config = "config_det_yolov8.yaml"
+
+    # from detect_yolov5 import get_detection, load_det_model
+    # det_config = "config_det_yolov5.yaml"
+    
+    # from segment_unetplusplus import get_segmentation, load_seg_model
+    # seg_config = "config_seg_unet++_mobilenet.yaml"
+    
+    from segment_ritnet import get_segmentation, load_seg_model
+    seg_config = "config_seg_ritnet.yaml"
+
+
     # config_det_yolov5.yaml / config_det_yolov8.yaml
-    run_detection("config_det_yolov8.yaml")
+    run_detection(det_config)
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
-    run_segmentation("config_seg_unet++_mobilenet.yaml")
+    run_segmentation(seg_config)
