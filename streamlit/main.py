@@ -61,7 +61,16 @@ def run_segmentation(config_file):
         # result = get_segmentation(model, image, start_time)
         result = get_segmentation(model, image_paths, start_time)
         
+def run_pose_estimation(model_path):
 
+    st.header("Run Pose Estimation")
+
+    pose_model = load_pose_model(model_path)
+    image_paths = glob.glob(SAVE_PATH + "/*")
+    for image_path in image_paths:
+        image = cv2.imread(image_path)
+        with st.spinner("pose..."):
+            result = get_pose_estimation(pose_model, image)
 # root_password = 'password'
 
 # @cache_on_button_press('Authenticate')
@@ -104,8 +113,12 @@ if __name__ == "__main__":
     from segment_ritnet import get_segmentation, load_seg_model
     seg_config = "config_seg_ritnet.yaml"
 
-
+    from pose_est import get_pose_estimation, load_pose_model
+    pose_model_path = "/opt/ml/streamlit__/assets/pose/pose_yolov8.pt"
+    
     # config_det_yolov5.yaml / config_det_yolov8.yaml
     run_detection(det_config)
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
     run_segmentation(seg_config)
+    
+    # run_pose_estimation(pose_model_path)
