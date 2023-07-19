@@ -20,6 +20,7 @@ st.set_page_config(layout="wide")
 
 DET_SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
 SEG_SAVE_PATH = "/opt/ml/eye_phone_streamlit/segmentation_results"
+POSE_SAVE_PATH = "/opt/ml/eye_phone_streamlit/pose_results"
 
 def run_detection(config_file):
 
@@ -60,17 +61,29 @@ def run_segmentation(config_file):
     with st.spinner("Running Eye segmentation..."):
         # result = get_segmentation(model, image, start_time)
         result = get_segmentation(model, image_paths, start_time)
-        
+
+
 def run_pose_estimation(model_path):
 
-    st.header("Run Pose Estimation")
+    st.subheader("run pose estimation..")
 
-    pose_model = load_pose_model(model_path)
-    image_paths = glob.glob(SAVE_PATH + "/*")
-    for image_path in image_paths:
-        image = cv2.imread(image_path)
-        with st.spinner("pose..."):
-            result = get_pose_estimation(pose_model, image)
+    model = load_pose_model(model_path)
+
+    # with open(config_file) as f:
+    #     config = yaml.load(f, Loader=yaml.FullLoader)
+    image_paths = glob.glob(DET_SAVE_PATH + "/*")
+    # for image_path in image_paths:
+    #     start_time = time.time()
+    #     # image = cv2.imread(image_path)
+    #     with st.spinner("Running Eye segmentation..."):
+    #         # result = get_segmentation(model, image, start_time)
+    #         result = get_segmentation(model, image_path, start_time)
+    start_time = time.time()
+    with st.spinner("Running Eye point estimation..."):
+        # result = get_segmentation(model, image, start_time)
+        result = get_pose_estimation(model, image_paths, start_time)
+        
+
 # root_password = 'password'
 
 # @cache_on_button_press('Authenticate')
@@ -100,6 +113,12 @@ if __name__ == "__main__":
     folder = glob.glob(SEG_SAVE_PATH + "/*")
     for file in folder:
         os.remove(file)
+    folder = glob.glob(POSE_SAVE_PATH + "/*")
+    for file in folder:
+        os.remove(file)
+
+    # from detect_yolov8 import get_detection, load_det_model
+    # det_config = "config_det_yolov8.yaml"
 
     from detect_yolov8 import get_detection, load_det_model
     det_config = "config_det_yolov8_with_close.yaml"
@@ -115,11 +134,11 @@ if __name__ == "__main__":
 
     from pose_est import get_pose_estimation, load_pose_model
     pose_model_path = "./assets/pose/pose_yolov8.pt"
-    
-    # config_det_yolov5.yaml / config_det_yolov8.yaml / config_det_yolov8_with_close.yaml
-    ## ModuleNotFoundError: No module named 'ultralytics.utils' 뜨면 pip install -U ultralytics ##
+
+
+    # config_det_yolov5.yaml / config_det_yolov8.yaml
     run_detection(det_config)
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
-    run_segmentation(seg_config)
-
-    # run_pose_estimation(pose_model_path)
+    # run_segmentation(seg_config)
+    # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
+    run_pose_estimation(pose_model_path)

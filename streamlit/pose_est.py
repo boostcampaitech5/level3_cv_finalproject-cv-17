@@ -6,40 +6,55 @@ import numpy as np
 import streamlit as st
 import matplotlib.pyplot as plt
 from ultralytics import YOLO
+import time
 
-SAVE_PATH = "/opt/ml/streamlit__/detection_results"
+
+POSE_SAVE_PATH = "/opt/ml/eye_phone_streamlit/pose_results"
 center = [55,28]
+
 @st.cache_data
 def load_pose_model(model_path):
     pose_model = YOLO(model_path)
     return pose_model
 
 
-def get_pose_estimation(model, image):
-    results = model.predict(source=image)[0]
-    keypoints = results.keypoints.xy
-    keypoints = [point.tolist() for point in keypoints]
+def get_pose_estimation(model, image_paths, start_time):
 
-    fig, ax = plt.subplots()
-    #fig, ax = plt.subplots(figsize=(0.2,0.2))
+    predicts = []
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    for index, image_path in enumerate(image_paths):
+        image = cv2.imread(image_path)
+        results = model.predict(source=image)[0]
+        # boxes = results.boxes
+        # class_  = boxes.cls
+        # bounding_boxes = boxes.xyxy
 
-    ax.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+        keypoints = results.keypoints.xy
+        keypoints = [point.tolist() for point in keypoints]
 
-    for keypoint in keypoints[0]:
-        #print(keypoint)
-        x, y = keypoint
-        ax.plot(x, y, 'ro')
+        print('>> pose estimation time per image (image %d) : ' %(index+1), time.time() - start_time)
 
-    # Figure 객체를 이미지로 변환
-    buffer = io.BytesIO()
-    fig.savefig(buffer, format='png')
-    buffer.seek(0)
-    image_eye = buffer.getvalue()
+        fig, ax = plt.subplots()
+        # fig, ax = plt.subplots(figsize=(0.2,0.2))
 
-    # 스트림릿에서 이미지로 표시
-    st.image(image_eye, use_column_width=True)
+        ax.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+
+        for keypoint in keypoints[0]:
+            #print(keypoint)
+            x, y = keypoint
+            ax.plot(x, y, 'ro')
+
+        # Figure 객체를 이미지로 변환
+        buffer = io.BytesIO()
+        fig.savefig(buffer, format='png')
+        buffer.seek(0)
+        image_eye = buffer.getvalue()
+
+        # save_path = POSE_SAVE_PATH +'/'+ str(index) +'.jpg'
         
+        st.image(image_eye, use_column_width=True)
+        # plt.imsave(save_path, image_eye)
     
-    #st.pyplot(fig)
-    
+        predicts.append(keypoints)
 
+    return predicts
