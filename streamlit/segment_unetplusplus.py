@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 
 SEG_SAVE_PATH = "/opt/ml/eye_phone_streamlit/segmentation_results"
-
+MASK_SAVE_PATH = "/opt/ml/eye_phone_streamlit/mask_result"
 ## Unet++/mobilenet ['sclera', 'iris', 'pupil']
 
 @st.cache_data
@@ -99,10 +99,12 @@ def get_segmentation(model, image_paths, start_time):
         
 
         save_path = SEG_SAVE_PATH +'/'+ str(index) +'.jpg'
-
+        mask_save_path = MASK_SAVE_PATH + '/'+ str(index) +'.png'
+        
         result_img = seg_visualize(org_image, n)
         plt.imsave(save_path, result_img)
-
+        plt.imsave(mask_save_path, n)
+        
         predicts.append(n)
     
     # return n
@@ -116,11 +118,15 @@ def seg_visualize(image, result):
     for i in range(640):
         for j in range(416):
             if result[i][j][0] == 1: # sclera, 공막, 적색
+                result[i][j][0], result[i][j][1], result[i][j][2] = 255, 0, 0
                 image[i][j][0], image[i][j][1], image[i][j][2] = 255, 0, 0
             if result[i][j][1] == 1: # iris, 홍채, 녹색
+                result[i][j][0], result[i][j][1], result[i][j][2] = 0, 255, 0
                 image[i][j][0], image[i][j][1], image[i][j][2] = 0, 255, 0
             if result[i][j][2] == 1: # pupil, 동공, 청색
+                result[i][j][0], result[i][j][1], result[i][j][2] = 0, 0, 255
                 image[i][j][0], image[i][j][1], image[i][j][2] = 0, 0, 255
+
 
     # image = Image.fromarray(image)
     # image.show()

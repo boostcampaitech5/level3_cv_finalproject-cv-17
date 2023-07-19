@@ -38,7 +38,7 @@ def get_detection(model, image_path, start_time):
     # tensor = transform_image(image_bytes=image_bytes).to(device)
     # outputs = model.forward(tensor)
     image = Image.open(image_path)
-    image = image.resize((640, 640)) # doesn't matter 
+    #image = image.resize((640, 640)) # doesn't matter 
 
     outputs = model(image)[0]
     # print('####')
