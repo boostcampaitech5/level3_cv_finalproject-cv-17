@@ -122,7 +122,7 @@ if __name__ == "__main__":
     # det_config = "config_det_yolov8.yaml"
 
     from detect_yolov8 import get_detection, load_det_model
-    det_config = "config_det_yolov8_with_close.yaml"
+    det_config = "config_det_yolov8_sqaure.yaml"
 
     # from detect_yolov5 import get_detection, load_det_model
     # det_config = "config_det_yolov5.yaml"
@@ -140,7 +140,7 @@ if __name__ == "__main__":
     from post_processing import post_processing
     image_directory = "/opt/ml/eye_phone_streamlit/mask_result"
     
-    # config_det_yolov5.yaml / config_det_yolov8.yaml
+    # config_det_yolov5.yaml / config_det_yolov8.yaml / config_det_yolov8_sqaure.yaml / config_det_yolov8_with_close.yaml
     run_detection(det_config)
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
     run_segmentation(seg_config)
