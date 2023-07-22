@@ -18,10 +18,10 @@ import time
 st.set_page_config(layout="wide")
 
 
-DET_SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
-SEG_SAVE_PATH = "/opt/ml/eye_phone_streamlit/segmentation_results"
-POSE_SAVE_PATH = "/opt/ml/eye_phone_streamlit/pose_results"
-MASK_SAVE_PATH = "/opt/ml/eye_phone_streamlit/mask_result"
+DET_SAVE_PATH = "/opt/ml/streamlit/detection_results"
+SEG_SAVE_PATH = "/opt/ml/streamlit/segmentation_results"
+POSE_SAVE_PATH = "/opt/ml/streamlit/pose_results"
+MASK_SAVE_PATH = "/opt/ml/streamlit/mask_results"
 
 def run_detection(config_file):
 
@@ -138,12 +138,13 @@ if __name__ == "__main__":
     pose_model_path = "./assets/pose/pose_yolov8.pt"
 
     from post_processing import post_processing
-    image_directory = "/opt/ml/eye_phone_streamlit/mask_result"
+    image_directory = "/opt/ml/streamlit/mask_results"
     
     # config_det_yolov5.yaml / config_det_yolov8.yaml / config_det_yolov8_sqaure.yaml / config_det_yolov8_with_close.yaml
     run_detection(det_config)
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
     run_segmentation(seg_config)
-    # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
+    
     #run_pose_estimation(pose_model_path)
+
     post_processing(image_directory)

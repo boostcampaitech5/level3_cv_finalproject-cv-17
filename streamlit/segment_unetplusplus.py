@@ -17,8 +17,8 @@ from model import DenseNet2D
 import matplotlib.pyplot as plt
 
 
-SEG_SAVE_PATH = "/opt/ml/eye_phone_streamlit/segmentation_results"
-MASK_SAVE_PATH = "/opt/ml/eye_phone_streamlit/mask_result"
+SEG_SAVE_PATH = "/opt/ml/streamlit/segmentation_results"
+MASK_SAVE_PATH = "/opt/ml/streamlit/mask_result"
 ## Unet++/mobilenet ['sclera', 'iris', 'pupil']
 
 @st.cache_data
@@ -43,13 +43,12 @@ def get_segmentation(model, image_paths, start_time):
         # print('**3 channel**')
         org_image = cv2.imread(image_path)
         org_image = np.array(org_image) #
-        print(org_image.shape)
+        print('(before resize) ', org_image.shape)
         org_image = cv2.resize(org_image, (416,640), interpolation=cv2.INTER_CUBIC) #
         # org_image = np.pad(org_image, ((0,0),(0,16),(0,0)), 'constant', constant_values=0) #
-        print(org_image.shape)
         # st.image(org_image)
         image = org_image / 255.
-        print(org_image.shape)
+        print('(after resize) ', org_image.shape)
         # st.image(org_image)
 
         # print('**1 channel**')
@@ -75,15 +74,15 @@ def get_segmentation(model, image_paths, start_time):
         image = np.expand_dims(image, axis=0) #
         # print(image.shape)
         image = torch.from_numpy(image).float()
-        print(image.shape)
+        print('(to Tensor / transpose)', image.shape)
             
         image = image.to(device) # image = image.cuda()
         output = model(image)
         print(output.shape)
+        print('(output) ', output.shape)
 
-        finish_time = time.time()
-        print('segmentation time per image (image %d) : ' %(index+1), finish_time - start_time)
-        start_time = finish_time
+        finish_time_1 = time.time()
+        print('>> segmentation time per image (image %d) : ' %(index+1), finish_time_1 - start_time)
 
         if type(output) == type(OrderedDict()):
             output = output['out']
@@ -96,15 +95,17 @@ def get_segmentation(model, image_paths, start_time):
         n = np.squeeze(n, axis = 0) #
         n = n.transpose(1, 2, 0) #
         n = n.astype(np.uint8) #
-        
+        print(n.shape, n.size)
+
+        finish_time_2 = time.time()
+        print('>> after segmentation (image %d) : ' %(index+1), finish_time_2 - finish_time_1)
+        print('>> total time (image %d) : ' %(index+1), finish_time_2 - start_time)
 
         save_path = SEG_SAVE_PATH +'/'+ str(index) +'.jpg'
-        mask_save_path = MASK_SAVE_PATH + '/'+ str(index) +'.png'
-        
+
         result_img = seg_visualize(org_image, n)
         plt.imsave(save_path, result_img)
-        plt.imsave(mask_save_path, n)
-        
+
         predicts.append(n)
     
     # return n

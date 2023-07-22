@@ -9,7 +9,7 @@ from ultralytics import YOLO
 import time
 
 
-POSE_SAVE_PATH = "/opt/ml/eye_phone_streamlit/pose_results"
+POSE_SAVE_PATH = "/opt/ml/streamlit/pose_results"
 center = [55,28]
 
 @st.cache_data
@@ -50,9 +50,10 @@ def get_pose_estimation(model, image_paths, start_time):
         buffer.seek(0)
         image_eye = buffer.getvalue()
 
-        # save_path = POSE_SAVE_PATH +'/'+ str(index) +'.jpg'
+        save_path = POSE_SAVE_PATH +'/'+ str(index) +'.jpg'
         
         st.image(image_eye, use_column_width=True)
+        fig.savefig(save_path, format='png')
         # plt.imsave(save_path, image_eye)
     
         predicts.append(keypoints)

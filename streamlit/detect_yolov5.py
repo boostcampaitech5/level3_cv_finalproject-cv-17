@@ -7,7 +7,7 @@ import yaml
 from util_funcs import transform_image
 
 
-DET_SAVE_PATH = "/opt/ml/eye_phone_streamlit/detection_results"
+DET_SAVE_PATH = "/opt/ml/streamlit/detection_results"
 
 from ultralytics import YOLO
 from PIL import Image
