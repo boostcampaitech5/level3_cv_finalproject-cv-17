@@ -96,8 +96,8 @@ def limit_of_gesture(mesh_points, left_pupil, right_pupil):
     print('rightRyeCardinals\n', rightEyeCardinals)
 
     eye_move = {
-        'look_left' : 5, # 'backward',
-        'look_right' : 6, # 'forward',
+        'look_left' : 6, # 'backward',
+        'look_right' : 5, # 'forward',
         'look_up' : 2, # 'scroll_up',
         'look_down' : 1, # 'scroll_down',
         # 'closed' : 'blink',
@@ -117,11 +117,25 @@ def limit_of_gesture(mesh_points, left_pupil, right_pupil):
     print(right_eye_center_y)
     # cv2.drawMarker(input_frame, rightEyeCardinals['eye']['right'], (0, 225, 225), line_type = cv2.LINE_AA)
 
+
+    # limit
+    # left
+    left_move_limit_x = (leftEyeCardinals['eye']['right'][0]*2 + left_eye_center_x*3) / 5
+    # right
+    right_move_limit_x = (right_eye_center_x*3 + rightEyeCardinals['eye']['left'][0]*2) / 5
+    # top
+    r_foot_xp, r_foot_yp, r_pupil_distance = get_distance(rightEyeCardinals['eye']['left'], rightEyeCardinals['eye']['right'], right_pupil)
+    r_foot_xb, r_foot_yb, r_bottom_distance = get_distance(rightEyeCardinals['eye']['left'], rightEyeCardinals['eye']['right'], rightEyeCardinals['eye']['bottom'])
+    l_foot_xp, l_foot_yp, l_pupil_distance = get_distance(leftEyeCardinals['eye']['left'], leftEyeCardinals['eye']['right'], left_pupil)
+    l_foot_xb, l_foot_yb, l_bottom_distance = get_distance(leftEyeCardinals['eye']['left'], leftEyeCardinals['eye']['right'], leftEyeCardinals['eye']['bottom'])
+    # bottom
+    eye_height = abs(leftEyeCardinals['eye']['top'][1] - leftEyeCardinals['eye']['bottom'][1])
+    iris_height = abs(leftEyeCardinals['iris']['top'][1] - leftEyeCardinals['iris']['bottom'][1])
+    
     gesture = []
 
     # look_left (left_end : center_x = 3 : 2) - left_eye / x좌표 기준
     print('\nleft')
-    left_move_limit_x = (leftEyeCardinals['eye']['right'][0]*2 + left_eye_center_x*3) / 5
     print(left_pupil[0], left_move_limit_x)
     # if left_pupil[0] <= left_move_limit_x:
     if left_move_limit_x -5.8 <= left_pupil[0]:
@@ -129,7 +143,6 @@ def limit_of_gesture(mesh_points, left_pupil, right_pupil):
 
     # look_right (right_end : center_x = 3 : 2) - right_eye / x좌표 기준
     print('\nright')
-    right_move_limit_x = (right_eye_center_x*3 + rightEyeCardinals['eye']['left'][0]*2) / 5
     print(right_pupil[0], right_move_limit_x)
     if right_pupil[0] <= right_move_limit_x +5.8:
     # if (right_move_limit_x -3 <= right_pupil[0]) and (right_pupil[0] <= right_move_limit_x +3):
@@ -138,15 +151,14 @@ def limit_of_gesture(mesh_points, left_pupil, right_pupil):
     # look_up (distance)
     print('\nup')
     # dis_x, dis_y = Coordinate(leftEyeCardinals['eye'], rightEyeCardinals['eye'], left_pupil, right_pupil)
-    r_foot_xp, r_foot_yp, r_pupil_distance = get_distance(rightEyeCardinals['eye']['left'], rightEyeCardinals['eye']['right'], right_pupil)
-    r_foot_xb, r_foot_yb, r_bottom_distance = get_distance(rightEyeCardinals['eye']['left'], rightEyeCardinals['eye']['right'], rightEyeCardinals['eye']['bottom'])
-    l_foot_xp, l_foot_yp, l_pupil_distance = get_distance(leftEyeCardinals['eye']['left'], leftEyeCardinals['eye']['right'], left_pupil)
-    l_foot_xb, l_foot_yb, l_bottom_distance = get_distance(leftEyeCardinals['eye']['left'], leftEyeCardinals['eye']['right'], leftEyeCardinals['eye']['bottom'])
     print(r_pupil_distance, r_bottom_distance)
     print(l_pupil_distance, r_bottom_distance)
-    if l_pupil_distance >= l_bottom_distance or r_pupil_distance >= r_bottom_distance: # and (left_move_limit_x < left_pupil[0] or left_pupil[0] < right_move_limit_x):
-        if not gesture:
-            gesture.append(eye_move['look_up'])
+    if l_pupil_distance >= l_bottom_distance or r_pupil_distance >= r_bottom_distance:
+        if left_pupil[0] < left_move_limit_x - 5.8 and right_move_limit_x + 5.8 < right_pupil[0]: ### left / right
+            if eye_height >= (iris_height / 5 * 3) and (r_pupil_distance >= 3 and l_pupil_distance >= 3): # bottom
+                if len(gesture) == 0:
+                    print('####', len(gesture))
+                    gesture.append(eye_move['look_up'])
     
     # # up (eye_bottom < iris_bottom) - left_eye / y좌표 기준 
     # print('up')
@@ -156,11 +168,13 @@ def limit_of_gesture(mesh_points, left_pupil, right_pupil):
 
     # down (eye_height < iris_height 5분의 3) - left_eye / 길이 기준
     print('\ndown')
-    eye_height = abs(leftEyeCardinals['eye']['top'][1] - leftEyeCardinals['eye']['bottom'][1])
-    iris_height = abs(leftEyeCardinals['iris']['top'][1] - leftEyeCardinals['iris']['bottom'][1])
     print(eye_height, iris_height / 5 * 3, iris_height)
     if eye_height < (iris_height / 5 * 3) or (r_pupil_distance < 3 or l_pupil_distance < 3):
-        gesture.append(eye_move['look_down'])
+        if left_pupil[0] < left_move_limit_x -5.8 and right_move_limit_x + 5.8 < right_pupil[0]: ### left / right
+            if l_pupil_distance < l_bottom_distance and r_pupil_distance < r_bottom_distance: ### top
+                if len(gesture) == 0:
+                    print('####', len(gesture))
+                    gesture.append(eye_move['look_down'])
 
     print(gesture)
     if gesture:
