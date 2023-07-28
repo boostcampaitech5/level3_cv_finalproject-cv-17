@@ -38,7 +38,6 @@ def get_detection(model, image_path, start_time):
     image = Image.open(image_path)
     image = image.resize((768,480)) # doesn't matter 
 
-    print('^^^^^^^^')
     outputs = model(image)
     print(outputs)
     # print(outputs.xyxy)

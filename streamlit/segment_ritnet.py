@@ -114,20 +114,3 @@ def get_segmentation(model, image_paths, start_time):
     
     return predicts
 
-
-# def seg_visualize(image, result):
-#     print(image.shape)
-#     print(result.shape)
-#     for i in range(192):
-#         for j in range(192):
-#             if int(result[i][j]*0.3) == 0: # eyelid
-#                 image[0][i][j], image[1][i][j], image[2][i][j] = 255, 0, 0
-#             if int(result[i][j]*0.3) == 1: # iris
-#                 image[i][j][0], image[i][j][1], image[i][j][2] = 255, 0, 0
-#             if int(result[i][j]*0.3) == 2: # pupil
-#                 image[i][j][0], image[i][j][1], image[i][j][2] = 0, 255, 0
-
-#     # image = Image.fromarray(image)
-#     # image.show()
-#     st.image(image)
-#     return image

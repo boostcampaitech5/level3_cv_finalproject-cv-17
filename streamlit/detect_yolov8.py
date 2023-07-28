@@ -53,18 +53,7 @@ def get_detection(model, image_path, start_time):
 
         save_path = DET_SAVE_PATH +'/'+ str(cls) +'.jpg'
         
-        # dx=x2-x1
-        # dy=y2-y1
-        # x_1=x1-0.1*dx
-        # y_1=y1-0.8*dy
-        # x_2=x2+0.1*dx
-        # y_2=y2+1.7*dy
-        # cropped_image = image.crop((x_1, y_1, x_2, y_2))
         cropped_image = image.crop((x1, y1, x2, y2))
-        # image_size =[x2-x1,y2-y1]
-        # after_image_size=[x_2-x_1,y_2-y_1]
-        # st.text(image_size)
-        # st.text(after_image_size)
         st.image(cropped_image)
         cropped_image.save(save_path)
     

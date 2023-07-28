@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 
 
 SEG_SAVE_PATH = "/opt/ml/streamlit/segmentation_results"
-MASK_SAVE_PATH = "/opt/ml/streamlit/mask_result"
+
 ## Unet++/mobilenet ['sclera', 'iris', 'pupil']
 
 @st.cache_data
@@ -127,7 +127,6 @@ def seg_visualize(image, result):
             if result[i][j][2] == 1: # pupil, 동공, 청색
                 result[i][j][0], result[i][j][1], result[i][j][2] = 0, 0, 255
                 image[i][j][0], image[i][j][1], image[i][j][2] = 0, 0, 255
-
 
     # image = Image.fromarray(image)
     # image.show()

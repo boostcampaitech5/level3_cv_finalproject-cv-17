@@ -130,18 +130,18 @@ if __name__ == "__main__":
     # from segment_unetplusplus import get_segmentation, load_seg_model
     # seg_config = "config_seg_unet++_mobilenet.yaml"
     
-    #segment_unetplusplus / segment_ritnet
-    from segment_unetplusplus import get_segmentation, load_seg_model
-    seg_config = "config_seg_unet++_mobilenet.yaml"
+    from segment_ritnet import get_segmentation, load_seg_model
+    seg_config = "config_seg_ritnet.yaml"
 
     from pose_est import get_pose_estimation, load_pose_model
     pose_model_path = "./assets/pose/pose_yolov8.pt"
 
     from post_processing import post_processing
-    image_directory = "/opt/ml/streamlit/mask_results"
+    image_directory = MASK_SAVE_PATH
     
     # config_det_yolov5.yaml / config_det_yolov8.yaml / config_det_yolov8_sqaure.yaml / config_det_yolov8_with_close.yaml
     run_detection(det_config)
+    
     # config_seg_ritnet.yaml / config_seg_unet++_mobilenet.yaml
     run_segmentation(seg_config)
     
