@@ -12,3 +12,6 @@
 서지훈
 원유석
 정대훈
+
+#### 서비스 아키텍처
+<img width="766" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/9d88ae93-2723-439d-b727-1b87e72863d8">
