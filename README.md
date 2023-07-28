@@ -33,10 +33,8 @@ FaceMesh로 얼굴에서 동공을 찾아내고 후처리 알고리즘을 거쳐
 앱 초기화면
    
 <img width="268" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/de2b4740-6afa-4655-aa69-e7069c27ac73">      
-동작 조건   
 
-<img width="295" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/509d0e8f-a622-4ff3-aafa-c3a4f7799bcb">        
-실행 동작   
+<img width="295" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/509d0e8f-a622-4ff3-aafa-c3a4f7799bcb">         
 
 
 
