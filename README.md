@@ -29,8 +29,10 @@ FaceMesh로 얼굴에서 동공을 찾아내고 후처리 알고리즘을 거쳐
 #### 안드로이드 앱
 입력한 ip주소의 서버와 연결하여 데이터 통신   
 입력한 url 주소의 웹페이지를 띄우고 백그라운드에서 받은 데이터에 따라 기능 수행.   
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/2ed88e0f-3dcf-4c8d-9cb3-dcad936a80b3)   
+
 앱 초기화면
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/2ed88e0f-3dcf-4c8d-9cb3-dcad936a80b3)   
+
    
 <img width="268" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/de2b4740-6afa-4655-aa69-e7069c27ac73">      
 
