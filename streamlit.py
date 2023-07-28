@@ -11,7 +11,8 @@ from io import BytesIO
 import socket
 
 from Mediapipeline import Mediapipeline
-from .gesture.getGesture_ver2 import get_gesture
+# from .gesture.getGesture_ver2 import get_gesture
+from getGesture import get_gesture
 
 
 # SETTING PAGE CONFIG TO WIDE MODE
