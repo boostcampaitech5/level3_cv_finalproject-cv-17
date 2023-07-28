@@ -21,9 +21,8 @@
 <img width="766" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/9d88ae93-2723-439d-b727-1b87e72863d8">
 
 #### 모델-Mediapipe FaceMesh
-Mediapipe의 FaceMesh 모델을 이용
 <img width="184" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/0c2dcb1c-0110-4e51-ab0f-d0f087a56aa0">
-
+Mediapipe의 FaceMesh 모델을 이용
 FaceMesh로 얼굴에서 동공을 찾아내고 후처리 알고리즘을 거쳐 동공이 어떤 움직임을 하는지 판단
 
 #### 안드로이드 앱
