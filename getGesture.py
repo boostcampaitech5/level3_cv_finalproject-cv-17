@@ -219,18 +219,14 @@ def limit_of_gesture(mesh_points, left_pupil, right_pupil):
     # print('rightRyeCardinals\n', rightEyeCardinals)
 
     eye_move = {
-        'look_left' : 6, # 'backward',
-        'look_right' : 5, # 'forward',
-        'look_up' : 2, # 'scroll_up',
         'look_down' : 1, # 'scroll_down',
-        'look_up_cont' : 8, # 'auto_scroll_up',
+        'look_up' : 2, # 'scroll_up',
+        'look_right' : 5, # 'forward',
+        'look_left' : 6, # 'backward',
         'look_down_cont' : 7, # 'auto_scroll_down',
+        'look_up_cont' : 8, # 'auto_scroll_up',
         'blink' : 9, # 'stop_auto_scroll',
         'blink_cont' : 10, # 'shut_down'
-        # 'look_up_with_blink' : 7, # 'auto_scroll_up',
-        # 'look_down_with_blink' : 8, # 'auto_scroll_down',
-        # 'blink_again' : 9, # 'stop_auto_scroll',
-        # 'blink_last' : 10, # 'shut_down'
     }
 
     left_eye_center_x = int((leftEyeCardinals['eye']['left'][0] + leftEyeCardinals['eye']['right'][0]) / 2)
