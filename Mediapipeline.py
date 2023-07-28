@@ -1,13 +1,14 @@
-# Mediapipeline.py
-
 import os
 import cv2
 import time
 import numpy as np
 import mediapipe as mp
 
+# import streamlit as st
+
 
 def Mediapipeline(image_path):
+
     frame = cv2.imread(image_path)
     frame = cv2.rotate(frame,cv2.ROTATE_90_COUNTERCLOCKWISE)
     mp_face_mesh = mp.solutions.face_mesh
@@ -26,5 +27,8 @@ def Mediapipeline(image_path):
 
     mesh_points = np.array(
         [np.multiply([p.x, p.y], [img_w, img_h]).astype(int) for p in results.multi_face_landmarks[0].landmark])
+
+    # cv2.resize(frame, (50, 50))
+    # st.image(frame) # remove for using server.py directly
 
     return mesh_points
