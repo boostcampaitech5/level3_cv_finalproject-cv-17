@@ -21,7 +21,7 @@
 <img width="766" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/9d88ae93-2723-439d-b727-1b87e72863d8">
 
 #### 모델-Mediapipe FaceMesh
-<img width="184" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/0c2dcb1c-0110-4e51-ab0f-d0f087a56aa0">   
+<img width="184" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/0c2dcb1c-0110-4e51-ab0f-d0f087a56aa0">    
 Mediapipe의 FaceMesh 모델을 이용   
 FaceMesh로 얼굴에서 동공을 찾아내고 후처리 알고리즘을 거쳐 동공이 어떤 움직임을 하는지 판단
 
@@ -29,10 +29,10 @@ FaceMesh로 얼굴에서 동공을 찾아내고 후처리 알고리즘을 거쳐
 입력한 ip주소의 서버와 연결하여 데이터 통신
 입력한 url 주소의 웹페이지를 띄우고 백그라운드에서 받은 데이터에 따라 기능 수행.   
 <img width="268" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/de2b4740-6afa-4655-aa69-e7069c27ac73">   
-동작 조건
+동작 조건   
 
-<img width="295" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/509d0e8f-a622-4ff3-aafa-c3a4f7799bcb">   
-실행 동작
+<img width="295" alt="image" src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/509d0e8f-a622-4ff3-aafa-c3a4f7799bcb">     
+실행 동작   
 
 
 
