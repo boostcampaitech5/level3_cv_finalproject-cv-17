@@ -42,7 +42,7 @@
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/fb2c632c-c9e2-4f6d-b6bb-883b0595755c)
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/126538540/dc2535af-232b-4454-869a-8be421262064)
 
-    **모델 설명**
+  **모델 설명**
 
 - Face landmark 검출 – Face detection model, **Face mesh model**, blendshape prediction model
 - 전체 이미지에서 얼굴 위치를 계산하는 검출기와 검출된 얼굴 위치에서 3D표면을 예측하는 3D 얼굴 랜드마크 모델이 함께 작동합니다.
