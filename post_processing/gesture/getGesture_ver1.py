@@ -16,13 +16,11 @@ RIGHT_IRIS = [469, 470, 471, 472]
 LEFT_EYE = [ 362, 382, 381, 380, 374, 373, 390, 249, 263, 466, 388, 387, 386, 385, 384, 398 ]
 RIGHT_EYE = [ 33, 7, 163, 144, 145, 153, 154, 155, 133, 173, 157, 158, 159, 160, 161, 246 ]
 
-# BLINK_COUNT = 0
-# BASE_POSITION = {}
 
-# 아래 끝 2초간 보기 -> 스크롤 아래
-# 위 끝 2초간 보기 -> 스크롤 위
-# 오른쪽 끝 2초간 보기 -> 앞으로 가기
-# 왼쪽 끝 2초간 보기 -> 뒤로 가기
+# 아래 끝 보기 -> scroll_down
+# 위 끝 보기 -> scroll_up
+# 오른쪽 끝 보기 -> forward
+# 왼쪽 끝 보기 -> backward
 
 
 def get_pupil_from_iris(points):
@@ -212,3 +210,63 @@ def get_distance(start_point, end_point, dest_point):
     return x_foot, y_foot, distance
     
 
+
+if __name__ == '__main__':
+
+    mp_face_mesh = mp.solutions.face_mesh
+    
+    # get new input
+    input_frame_path = 'test_image.jpg'
+
+    input_frame = cv2.imread(input_frame_path)
+    print(input_frame.shape)
+
+    # get base position
+    with mp_face_mesh.FaceMesh(
+        max_num_faces=1,
+        refine_landmarks=True,
+        min_detection_confidence=0.6,
+        min_tracking_confidence=0.6
+    ) as face_mesh:
+        input_frame = cv2.flip(input_frame, 1)
+        rgb_frame = cv2.cvtColor(input_frame, cv2.COLOR_BGR2RGB)
+        results = face_mesh.process(rgb_frame)
+        #getting width and height or frame
+        img_h, img_w = input_frame.shape[:2]
+
+    # print(results.multi_face_landmarks)
+
+    mesh_points = np.array([np.multiply([p.x, p.y], [img_w, img_h]).astype(int) for p in results.multi_face_landmarks[0].landmark])
+    # print(mesh_points)
+    
+    gesture = get_gesture(mesh_points, input_frame)
+    
+    left_pupil = get_pupil_from_iris(mesh_points[LEFT_IRIS])
+    right_pupil = get_pupil_from_iris(mesh_points[RIGHT_IRIS])
+
+    cv2.polylines(input_frame, [mesh_points[LEFT_IRIS]], True, (0,0,255), 1, cv2.LINE_AA)
+    cv2.polylines(input_frame, [mesh_points[RIGHT_IRIS]], True, (0,0,255), 1, cv2.LINE_AA)
+    cv2.polylines(input_frame, [mesh_points[LEFT_EYE]], True, (0,255,0), 1, cv2.LINE_AA)
+    cv2.polylines(input_frame, [mesh_points[RIGHT_EYE]], True, (0,255,0), 1, cv2.LINE_AA)
+    cv2.drawMarker(input_frame, left_pupil, (255,255,255), line_type = cv2.LINE_AA)
+    cv2.drawMarker(input_frame, right_pupil, (255,255,255), line_type = cv2.LINE_AA)
+    
+    # left_iris = []
+    # right_iris = []
+    # for i in range(4):
+    #     left_iris.append((mesh_points[LEFT_EYE][i]))
+    #     right_iris.append((mesh_points[RIGHT_EYE][i]))
+    # # print(left_iris)
+    # # print(right_iris)
+    # for index, color in enumerate([(255,0,0),(0,255,0),(0,0,255),(255,255,255)]):
+    #     cv2.drawMarker(input_frame, left_iris[index], color, line_type = cv2.LINE_AA)
+    #     cv2.drawMarker(input_frame, right_iris[index], color, line_type = cv2.LINE_AA)
+
+    # OpenCV에서 읽어온 BGR 이미지를 RGB로 변환
+    image_rgb = cv2.cvtColor(input_frame, cv2.COLOR_BGR2RGB)
+
+    # 이미지 시각화
+    plt.imshow(image_rgb)
+    plt.axis('off')
+    plt.title('Eye Visualization')
+    plt.show()
