@@ -55,7 +55,7 @@
 
 ## App
 
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/a33332e6-9c5d-475b-8824-90fb245e8133)
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/e0ba471d-fde2-4857-ba07-2ba3ee07e20f)
 
 ## Result
 
