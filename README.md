@@ -23,7 +23,7 @@
 
 ## Model Architecture
 
-### [reference](https://developers.google.com/mediapipe/solutions/vision/face_landmarker)
+### [reference](https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf)
 
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/d500613f-9b5d-4f2c-baaf-e7d623cc4882)
 
