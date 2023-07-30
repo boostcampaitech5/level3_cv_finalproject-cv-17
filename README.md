@@ -1,52 +1,44 @@
-# 프로젝트 소개
+### 💻 **EyePhone**
 
-<aside>
-💻 **EyePhone**
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/a3a149a2-3e26-4345-932d-bb1934776a37)
 
-</aside>
+- 현대인의 스마트폰 사용 시간이 지속적으로 증가함에 따라, 다양한 환경에서도 스마트폰을 편리하게 조작할 수 있는 기능을 만들고자 한다.
+- eye-phone은 동공의 위치를 탐지하고, 안구 내 움직임을 파악하여 스마트폰 화면에서 일정한 기능을 수행하도록 돕는 어플리케이션이다.
+  - 누워 있거나, 자세가 고정되어 있거나, 거리가 멀어 기기를 손으로 직접 조작하기 힘든 상황에서도 쉽게 스마트폰을 동작시킬 수 있도록 한다.
+  - 신체적 어려움으로 손을 사용하기 힘든 사람들도 스마트폰을 사용하는 것이 가능하도록 돕는다.
+  - 장시간 스마트폰을 사용함으로써 생기는 손의 피로도를 줄일 수 있도록 한다.
 
-- 현대인의 스마트폰 사용 시간이 지속적으로 증가하는 주세에 있어, 스마트폰을 보다 편하게 조작하기 위한 기능을 개발하고자 한다. 이를 통해 몸이 불편하거나, 자세가 고정된 상황에서도 스마트폰을 사용이 가능하도록 한다.
-- 스마트폰 카메라로 인에서 안구의 위치를 탐지하고, 그 중 동공의 위치를 통해 시선의 움직임을 파악한다. 해당 움직임을 기준으로 설정한 화면 동작 기능을 수행한다.
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/291d57fe-e28b-49f4-934b-04fe5ba5f605)
 
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/15f9a238-a680-4cf3-bba7-8eed290e4941)
+## Team Members
 
-# 팀 소개
+| <img src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/71297ab2-cbea-4069-8e2b-52fc1329da3b" width="80"> | <img src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/51d33796-1194-4229-875a-790fc1625483" width="80"> | <img src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/48c2e739-6a82-44b3-978d-c07add64d98b" width="80"> | <img src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/199ea001-e808-4e7e-ae8a-dbe1a082411e" width="80"> | <img src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/e891d773-31b0-4163-be1a-40cc6f9bdc42" width="80"> | <img src="https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/cf42f192-4de7-4232-910f-e115a9a7fe8e" width="80"> |
+| :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                     [강대호](https://github.com/dh3211)                                                      |                                                   [강정우](https://github.com/kangjjjjjww)                                                   |                                                  [박혜나](https://github.com/hyenagatha02)                                                   |                                                    [원유석](https://github.com/bigaguero)                                                    |                                                     [서지훈](https://github.com/Mugamta)                                                     |                                                   [정대훈](https://github.com/daehun1102)                                                    |
+|                                                         모델 테스트<br>데이터 후처리                                                         |                                               모델 테스트<br>mediapipe 구현<br> streamlit 구현                                               |                                                데이터 서치<br>데이터 후처리<br>streamlit 구현                                                |                                                            데이터 서치<br>앱 구축                                                            |                                                            모델 테스트<br>앱 구축                                                            |                                                        모델 테스트<br>mediapipe 구현                                                         |
 
-| 강대호 | 모델 테스트, 데이터 후처리                 |
-| ------ | ------------------------------------------ |
-| 강정우 | 모델 테스트, mediapipe, streamlit 구현     |
-| 박혜나 | 데이터 서치, 데이터 후처리, streamlit 구현 |
-| 원유석 | 데이터 서치, 앱 구축                       |
-| 서지훈 | 모델 테스트, 앱 구축                       |
-| 정대훈 | 모델 테스트, mediapipe 구현                |
-
-# 프로젝트 타임라인
+## Project Timeline
 
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/3000350e-e8df-4620-8f98-0ae34b4d9631)
 
-# 모델
+## Model Architecture
 
-### **Mediapipe**
-
-**모델 소개**
-
-- Mediapipe는 Google에서 개발한 오픈 소스 프레임 워크로, 머신 러닝 기반의 비디오 및 오디오 처리를 위한 다양한 라이브러리를 제공한다
-- Object detection, segmentation, pose detection, face detection 등 다양한 vision task solution을 제공한다.
-- 본 프로젝트에서 Mediapipe의 **face landmark detection** 모델을 눈과 홍채를 추적하는데 사용했습니다.
-- Android, Web, Python 환경에서도 동작이 가능 합니다.
-
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/50596e58-a706-4370-9b43-4a6f38a1c3ca)
-
-**모델 설명**
-
-- Face landmark 검출 – Face detection model, **Face mesh model**, blendshape prediction model
-- 전체 이미지에서 얼굴 위치를 계산하는 검출기와 검출된 얼굴 위치에서 3D표면을 예측하는 3D 얼굴 랜드마크 모델이 함께 작동합니다.
-- FaceMesh는 실시간으로 468개의 3D 얼굴 랜드마크를 추정합니다.
-- Attention Mesh 구조를 통해 특징이 가장 작은 부분을 집중적으로 검출하여 랜드마크 생성합니다.
+### [reference](https://developers.google.com/mediapipe/solutions/vision/face_landmarker)
 
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/d500613f-9b5d-4f2c-baaf-e7d623cc4882)
 
-# 기능
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/50596e58-a706-4370-9b43-4a6f38a1c3ca)
+
+## Service Architecture
+
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/22c9a8a1-dc01-4125-963a-9f18a536e85c)
+
+- 휴대폰의 전면 카메라로 사용자의 얼굴을 찍어 서버로 보낸다.
+- 서버에서 Mediapipe 모델을 통해 face landmark를 검출한다.
+- landmark를 통해 눈과 동공의 좌표를 파악하고 후처리 알고리즘을 통해 제스처를 검출한다.
+- 제스처 코드를 사용자의 휴대폰에 전송하여 제스처를 실행한다.
+
+## Function
 
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/0b5712a8-fb0d-4e66-8d37-00065d85af39)
 
@@ -61,38 +53,19 @@
 |  눈 3 프레임 이상 감기​   | stop_auto_scroll​ |
 |   눈 5프레임 이상 감기​   |    shut_down​     |
 
-# 서비스 아키텍처
+## App
 
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/22c9a8a1-dc01-4125-963a-9f18a536e85c)
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/a33332e6-9c5d-475b-8824-90fb245e8133)
 
-- 휴대폰의 전면 카메라로 사용자의 얼굴을 찍어 서버로 보낸다.
-- 서버에서 Mediapipe 모델을 통해 face landmark를 검출한다.
-- landmark를 통해 눈과 동공의 좌표를 파악하고 후처리 알고리즘을 통해 제스처를 검출한다.
-- 제스처 코드를 사용자의 휴대폰에 전송하여 제스처를 실행한다.
+## Result
 
-# 앱
+### Effect
 
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/c8a2f51d-5abe-4d3a-a9e8-0f19eed2bf9b)
-앱 초기 화면
+- 신체적 어려움, 불편한 자세 등의 원인으로 화면을 손으로 직접 조작하기 어려운 사람들도 스마트폰을 조작할 수 있다.
+- 스마트폰만 있다면 그 외 다른 장치가 없어도 누구나 해당 어플리케이션을 사용할 수 있다.
+- 일반적으로 Eye tracking 기능을 지원하는 타 서비스는 보조기기를 착용해 비용이 많이 들지만 본 프로젝트에선 어플리케이션만으로 동작한다.
 
-url : 접속할 페이지 주소를 입력한다.
-
-ip address : 사용자의 얼굴 사진을 받고 후처리 진행할 서버의 주소를 입력한다.
-
-port number : 서버에 접속하기 위한 포트를 입력한다.
-
-최초 실행 딜레이 : 서버와 최초 접속하기 위해 필요한 시간 (1000ms 추천)
-
-동작 주기 : 사용자의 얼굴 사진을 서버에 전송하는 주기 (600 ~ 800ms 추천)
-
-# 결과
-
-### **가치**
-
-- 신체적 어려움, 불편한 자세 등의 원인으로 화면을 손으로 직접 조작하기 어려운 사람이 특별 한 기기 없이 스마트폰을 조작할 수 있다.
-- 일반적으로 Eye tracking 할 때 보조기기를 착용해 비용이 많이 들지만 본 프로젝트에선 어플리케이션만으로 동작한다.
-
-### 보완 및 확장
+### Future works
 
 - 웹 페이지가 아닌 모든 앱의 백그라운드에서 작동하여 다양한 앱에서 활용할 수 있게 한다.
 - 동공의 위치 기준을 다양화 하여 더 많은 제스처를 활용할 수 있다.
