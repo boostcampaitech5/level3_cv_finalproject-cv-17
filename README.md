@@ -8,7 +8,7 @@
   - 신체적 어려움으로 손을 사용하기 힘든 사람들도 스마트폰을 사용하는 것이 가능하도록 돕는다.
   - 장시간 스마트폰을 사용함으로써 생기는 손의 피로도를 줄일 수 있도록 한다.
 
-![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/291d57fe-e28b-49f4-934b-04fe5ba5f605)
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/f04271da-524a-43f3-9a6e-ebd2bb54a3e1)
 
 ## Team Members
 
@@ -33,25 +33,16 @@
 
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/22c9a8a1-dc01-4125-963a-9f18a536e85c)
 
-- 휴대폰의 전면 카메라로 사용자의 얼굴을 찍어 서버로 보낸다.
-- 서버에서 Mediapipe 모델을 통해 face landmark를 검출한다.
-- landmark를 통해 눈과 동공의 좌표를 파악하고 후처리 알고리즘을 통해 제스처를 검출한다.
-- 제스처 코드를 사용자의 휴대폰에 전송하여 제스처를 실행한다.
+- 휴대폰의 전면 카메라로 사용자의 얼굴 이미지를 프레임 단위로 찍어 서버로 송신
+- 서버에서 Mediapipe 모델을 통해 전송 받은 이미지에 대한 face landmark를 검출
+- landmark를 통해 눈과 동공의 좌표를 파악한 뒤 후처리 알고리즘을 통해 제스처 명령어 생성
+- 제스처 코드를 사용자의 휴대폰에 전송하여 제스처에 해당하는 화면 동작 기능 수행
 
 ## Function
 
 ![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/0b5712a8-fb0d-4e66-8d37-00065d85af39)
 
-|        작동 조건 ​        |     실행 동작     |
-| :-----------------------: | :---------------: |
-|        왼쪽 응시​         |     backward​     |
-|       오른쪽 응시​        |     forward​      |
-|        위쪽 응시​         |     scoll_up​     |
-|       아래쪽 응시​        |   scroll_down​    |
-|  위쪽 3프레임 이상 응시​  |  auto_scroll_up​  |
-| 아래쪽 3프레임 이상 응시​ | auto_scroll_down​ |
-|  눈 3 프레임 이상 감기​   | stop_auto_scroll​ |
-|   눈 5프레임 이상 감기​   |    shut_down​     |
+![image](https://github.com/boostcampaitech5/level3_cv_finalproject-cv-17/assets/70469008/680c295a-6602-41d4-8725-9f4e0aafb8b6)
 
 ## App
 
